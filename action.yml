@@ -5,7 +5,7 @@ inputs:
     description: 'GitHub Token'
     required: true
   repo-name:
-    description: 'Repo Name'
+    description: 'Repository Name'
     required: true
 runs:
   using: 'node12'
