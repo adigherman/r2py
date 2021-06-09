@@ -14844,7 +14844,7 @@ const convert = (packageName, RdFiles, description = null) => {
         const tmp = contents.match(/\\item\{.+?(?=\})/gs);
         let arg_names = undefined;
         if (tmp) {
-            arg_names = tmp.map(x => x.replace("\\item{", ''));   
+            arg_names = tmp.map(x => x.replace("\\item{", ''));
         }
         const method_name = contents.match(/\\name\{.+?(?=\})/gs).map(x => x.replace("\\name{", ''))[0];
 
@@ -15035,7 +15035,7 @@ module.exports = require("zlib");;
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __nccwpck_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -15049,7 +15049,7 @@ module.exports = require("zlib");;
 /******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		var threw = true;
 /******/ 		try {
@@ -15058,14 +15058,14 @@ module.exports = require("zlib");;
 /******/ 		} finally {
 /******/ 			if(threw) delete __webpack_module_cache__[moduleId];
 /******/ 		}
-/******/ 	
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
@@ -15075,9 +15075,9 @@ module.exports = require("zlib");;
 /******/ 			return module;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/compat */
-/******/ 	
+/******/
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";/************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
@@ -15108,11 +15108,9 @@ async function* getFiles(dir, blacklist = ['.git', 'node_modules', '__pycache__'
 
 async function main() {
     try {
-        const username = core.getInput('username')
-        const repo = core.getInput('repo')
-        const email = core.getInput('email')
-        const pat = core.getInput('pat')
-        const octokit = github.getOctokit(pat);
+        const repo = core.getInput('repo-name')
+        const github_token = core.getInput('github-token')
+        const octokit = github.getOctokit(github_token);
         await octokit.request('POST /user/repos', {
             name: `${repo}.py`,
             auto_init: true, // needed if uploading via API rather than git push
@@ -15123,8 +15121,6 @@ async function main() {
         fs.mkdtemp(path.join(os.tmpdir(), 'r2py-'), (err, folder) => {
             if (err) throw err;
             process.chdir(folder);
-            execSync(`git config --global user.email ${email}`)
-            execSync(`git config --global user.name ${username}`)
             execSync('git config --global init.defaultBranch main')
             execSync('git init')
             fs.copySync(`${__dirname}/../boilerplate/`, '.')
