@@ -7,6 +7,9 @@ inputs:
   repo-name:
     description: 'Repository Name'
     required: true
+  deploy-to:
+    description: 'Deploy to this GH Account'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'

@@ -15110,6 +15110,7 @@ async function main() {
     try {
         const repo = core.getInput('repo-name')
         const github_token = core.getInput('github-token')
+        const username = core.getInput('deploy-to')
         const octokit = github.getOctokit(github_token);
         await octokit.request('POST /user/repos', {
             name: `${repo}.py`,
