@@ -15109,8 +15109,10 @@ async function* getFiles(dir, blacklist = ['.git', 'node_modules', '__pycache__'
 async function main() {
     try {
         const repo = core.getInput('repo-name')
+        console.log("repo: " + repo);
         const github_token = core.getInput('github-token')
         const username = core.getInput('deploy-to')
+        console.log('Destination: ' + username);
         const octokit = github.getOctokit(github_token);
         await octokit.request('POST /user/repos', {
             name: `${repo}.py`,
@@ -15141,6 +15143,7 @@ async function main() {
             // instead of `git push` (which req's a password), upload each file individually via API
             (async () => {
                 for await (const f of getFiles(folder)) {
+                    console.log("path: " + path.relative(folder, f));
                     await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
                         owner: username,
                         repo: `${repo}.py`,
